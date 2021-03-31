@@ -23,7 +23,10 @@ client.connect(err => {
     })
   })
 
-  
+  app.get('/allBooks', (req, res) => {
+    bookCollection.find({}).toArray((err, documents) => res.send(documents));
+  })
+
 });
 
 app.get('/', (req, res) => {
