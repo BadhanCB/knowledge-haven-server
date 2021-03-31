@@ -14,7 +14,16 @@ app.use(express.json());
 client.connect(err => {
   const bookCollection = client.db(`${process.env.DB_NAME}`).collection(`${process.env.BOOK_COLLECTION}`);
   console.log('MongoDB database Connected');
-  client.close();
+
+  app.post('/addBook', (req, res) => {
+    bookCollection.insertOne(req.body)
+    .then((result) => {
+      const count = result.insertedCount;
+      res.send(count > 0);
+    })
+  })
+
+  
 });
 
 app.get('/', (req, res) => {
