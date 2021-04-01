@@ -15,7 +15,6 @@ app.use(express.json());
 client.connect(err => {
   const bookCollection = client.db(`${process.env.DB_NAME}`).collection(`${process.env.BOOK_COLLECTION}`);
   const orderCollection = client.db(`${process.env.DB_NAME}`).collection(`${process.env.ORDER_COLLECTION}`);
-  console.log('MongoDB database Connected');
 
   app.post('/addBook', (req, res) => {
     bookCollection.insertOne(req.body)
@@ -67,4 +66,4 @@ app.get('/', (req, res) => {
   res.send('Welcome to NodeJS & ExpressJS world');
 })
 
-app.listen(port, () => console.log(`Listening to port ${port}`));
+app.listen( process.env.PORT || port);
