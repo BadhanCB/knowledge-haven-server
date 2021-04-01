@@ -47,6 +47,20 @@ client.connect(err => {
     .toArray((err, documents) => res.send(documents));
   })
 
+  app.get('/addedBooks/:email', (req, res) => {
+    bookCollection.find({userEmail: req.params.email})
+    .toArray((err, documents) => res.send(documents));
+  })
+
+  app.delete('/deleteBook/:id', (req, res) => {
+    bookCollection.deleteOne({
+      _id: ObjectId(req.params.id),
+    }).then(result => {
+      const count = result.deletedCount;
+      res.send(count > 0);
+    })
+  })
+
 });
 
 app.get('/', (req, res) => {
