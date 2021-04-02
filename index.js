@@ -60,6 +60,22 @@ client.connect(err => {
     })
   })
 
+  app.patch('/updateBook/:id', (req, res) => {
+    const {name, author, price} = req.body;
+    bookCollection.updateOne(
+      {_id: ObjectId(req.params.id)},
+      {
+        $set: {
+          name: name,
+          author: author,
+          price: price,
+        }
+      }
+    ).then(result => {
+      res.send(result.modifiedCount > 0);
+    })
+  })
+
 });
 
 app.get('/', (req, res) => {
