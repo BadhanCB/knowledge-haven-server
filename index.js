@@ -3,11 +3,12 @@ const app = express();
 const cors = require('cors');
 const port = 1712;
 require('dotenv').config();
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient, ServerApiVersion } = require("mongodb");
 const ObjectId = require('mongodb').ObjectId;
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.brit3.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+console.log(process.env.DB_USER, process.env.DB_PASS, process.env.DB_NAME);
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.tinfh.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 app.use(cors());
 app.use(express.json());
