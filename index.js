@@ -6,12 +6,12 @@ require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const ObjectId = require('mongodb').ObjectId;
 
-console.log(process.env.DB_USER, process.env.DB_PASS, process.env.DB_NAME);
+app.use(cors());
+app.use(express.json());
+
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.tinfh.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
-app.use(cors());
-app.use(express.json());
 
 client.connect(err => {
   const bookCollection = client.db(`${process.env.DB_NAME}`).collection(`${process.env.BOOK_COLLECTION}`);
